@@ -1,0 +1,17 @@
+dhmm.model <- function(lambda, mc_type = 'eq_full') {#
+  states <- seq(1, lambda,  length.out = lambda)#
+  if (mc_type == 'eq_full') { transp <- matrix(rep(1 / lambda, lambda^2), nrow = lambda) }#
+  else if (mc_type == 'rd_full') { transp <- matrix(rep(1 / lambda, lambda^2), nrow = lambda) }#
+  else if (mc_type == 'count') {#
+    transp <- matrix(rep(1 / lambda, lambda^2), nrow = lambda) #
+  }#
+  else {#
+    transp <- matrix(rep(1 / lambda, lambda^2), nrow = lambda) #
+  }#
+  set.seed(123)#
+  mu <- round((lambda * runif(lambda) / 2), 2)#
+  set.seed(234)#
+  sd <- 3 * (round(runif(lambda), 2) + 1)#
+  res <- list(states, transp, mu, sd)#
+  return (res)#
+}
